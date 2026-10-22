@@ -1,0 +1,173 @@
+<!doctype html>
+<!-- War Simulator page: shared navigation, deployment controls, battlefield, and live battle report. -->
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>War Simulator · Louis du Beux</title>
+        <meta
+            name="description"
+            content="Build medieval armies and simulate battles between colorful factions with swordsmen, cavalry, and bowmen."
+        />
+        <link rel="stylesheet" href="/Lib/Bootstrap4.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="warSimulator.css" />
+        <link rel="stylesheet" href="/Theme.css?v=1" />
+        <script src="/NavBar.js" defer></script>
+    </head>
+    <body>
+        <div id="nav-placeholder"></div>
+        <main class="war-app">
+            <header class="intro">
+                <div>
+                    <p class="eyebrow">MEDIEVAL BATTLE SANDBOX</p>
+                    <h1>War Simulator</h1>
+                    <p class="subtitle">
+                        Raise your banners. Place your regiments. Let the battle
+                        unfold.
+                    </p>
+                </div>
+                <div class="battle-clock">
+                    <span id="phase">Deployment</span
+                    ><strong id="clock">00:00</strong>
+                </div>
+            </header>
+            <div class="workspace">
+                <aside class="panel controls">
+                    <h2>Build your army</h2>
+                    <label for="faction">Faction</label>
+                    <div class="faction-control">
+                        <select id="faction"></select
+                        ><button
+                            id="add-faction"
+                            title="Add faction"
+                            aria-label="Add faction"
+                        >
+                            +
+                        </button>
+                    </div>
+                    <div id="faction-key" class="faction-key"></div>
+                    <label>Regiment type</label>
+                    <div id="unit-types" class="unit-types">
+                        <button data-type="sword" aria-pressed="true">
+                            <span class="unit-icon">⚔</span
+                            ><span
+                                ><b>Swordsmen</b
+                                ><small>Close range · heavy damage</small></span
+                            ></button
+                        ><button data-type="cavalry" aria-pressed="false">
+                            <span class="unit-icon">♞</span
+                            ><span
+                                ><b>Cavalry</b
+                                ><small
+                                    >Fast movement · lighter attacks</small
+                                ></span
+                            ></button
+                        ><button data-type="bow" aria-pressed="false">
+                            <span class="unit-icon">➶</span
+                            ><span
+                                ><b>Bowmen</b
+                                ><small
+                                    >Ranged attacks · low health</small
+                                ></span
+                            >
+                        </button>
+                    </div>
+                    <label for="size"
+                        >Soldiers per regiment
+                        <output id="size-value">24</output></label
+                    ><input
+                        id="size"
+                        type="range"
+                        min="6"
+                        max="60"
+                        step="6"
+                        value="24"
+                    />
+                    <div class="unit-stats" id="unit-stats"></div>
+                    <div class="placement-tools">
+                        <button id="place" aria-pressed="true">
+                            Place regiment</button
+                        ><button id="erase" aria-pressed="false">
+                            Erase regiment
+                        </button>
+                    </div>
+                    <p class="hint">
+                        Choose a faction and unit type, then click or tap the
+                        battlefield. You can add or erase regiments during
+                        battle. Every faction fights every other faction.
+                    </p>
+                    <div class="setup-actions">
+                        <button id="demo">Load example</button
+                        ><button id="clear">Clear field</button>
+                    </div>
+                </aside>
+                <section class="battle-panel panel" aria-label="Battlefield">
+                    <div class="field-toolbar">
+                        <span
+                            ><i class="status-dot"></i>
+                            <span id="field-title"
+                                >Prepare the battlefield</span
+                            ></span
+                        ><span id="total">0 soldiers</span>
+                    </div>
+                    <div class="canvas-wrap">
+                        <canvas
+                            id="battlefield"
+                            width="1200"
+                            height="800"
+                            tabindex="0"
+                            aria-label="Battlefield. Click to place a regiment. Use arrow keys to position and Enter to place with the keyboard."
+                        ></canvas>
+                        <div
+                            id="field-message"
+                            class="field-message"
+                            aria-live="polite"
+                        ></div>
+                        <div class="compass" aria-hidden="true">N<br />↑</div>
+                    </div>
+                    <div class="battle-actions">
+                        <button id="start" class="primary">
+                            ▶ Start battle</button
+                        ><button id="reset">↺ Reset positions</button
+                        ><label for="speed"
+                            >Speed
+                            <select id="speed">
+                                <option value="0.5">0.5×</option>
+                                <option value="1" selected>1×</option>
+                                <option value="2">2×</option>
+                                <option value="4">4×</option>
+                            </select></label
+                        >
+                    </div>
+                </section>
+                <aside class="panel roster">
+                    <div class="roster-heading">
+                        <h2>Battle report</h2>
+                        <span class="eyebrow">LIVE</span>
+                    </div>
+                    <p class="hint">Surviving soldiers by faction</p>
+                    <div id="roster"></div>
+                    <div class="legend">
+                        <h3>On the field</h3>
+                        <p>
+                            <span>●</span> Swordsmen <span>◆</span> Cavalry
+                            <span>▲</span> Bowmen
+                        </p>
+                        <p>
+                            Thin streaks are arrows in flight. Health bars track
+                            each regiment.
+                        </p>
+                    </div>
+                    <p id="notice" class="notice" role="status">
+                        Choose your armies, then start the battle.
+                    </p>
+                </aside>
+            </div>
+            <footer class="help">
+                Click to deploy · Space to pause / resume · R to reset · Up to 8
+                factions and 1,200 living soldiers
+            </footer>
+        </main>
+        <script type="module" src="warSimulator.js?v=3"></script>
+    </body>
+</html>

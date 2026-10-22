@@ -1,0 +1,412 @@
+/* War Simulator layout and responsive controls using the shared site palette. */
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+}
+.war-app {
+    max-width: 1800px;
+    margin: auto;
+    padding: 30px;
+}
+.intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+}
+.eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--site-accent);
+    font-weight: 700;
+    margin: 0 0 8px;
+}
+h1 {
+    font-size: 36px;
+    font-weight: 650;
+    letter-spacing: -1px;
+    margin: 0 0 8px;
+}
+.subtitle,
+.hint,
+.help {
+    color: var(--site-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+.subtitle {
+    margin: 0;
+}
+.battle-clock {
+    text-align: right;
+    display: grid;
+    gap: 4px;
+    color: var(--site-muted);
+    font-size: 12px;
+}
+.battle-clock strong {
+    font: 26px monospace;
+    color: var(--site-text);
+}
+.workspace {
+    display: grid;
+    grid-template-columns: 250px minmax(300px, 1fr) 225px;
+    gap: 18px;
+    align-items: start;
+}
+.panel {
+    background: var(--site-surface);
+    border: 1px solid var(--site-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.controls,
+.roster {
+    padding: 20px;
+}
+h2 {
+    font-size: 16px;
+    margin: 0 0 20px;
+    font-weight: 650;
+}
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+}
+button,
+select {
+    background: var(--site-raised);
+    border: 1px solid var(--site-border);
+    border-radius: 6px;
+    color: var(--site-text);
+    font: inherit;
+    padding: 9px 12px;
+    cursor: pointer;
+}
+button:hover {
+    background: var(--site-hover);
+    color: var(--site-accent);
+}
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+button[aria-pressed="true"] {
+    border-color: var(--site-accent);
+    background: var(--site-hover);
+}
+.faction-control {
+    display: flex;
+    gap: 8px;
+}
+.faction-control select {
+    width: 100%;
+    min-width: 0;
+}
+.faction-key {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+.faction-key button {
+    width: 19px;
+    height: 19px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid transparent;
+}
+.faction-key button[aria-pressed="true"] {
+    outline: 2px solid var(--site-text);
+    outline-offset: 2px;
+}
+.unit-types {
+    display: grid;
+    gap: 8px;
+}
+.unit-types button {
+    display: flex;
+    text-align: left;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 10px;
+}
+.unit-icon {
+    font-size: 27px;
+    width: 28px;
+    text-align: center;
+}
+.unit-types b {
+    font-size: 13px;
+}
+.unit-types small {
+    display: block;
+    font-size: 10px;
+    color: var(--site-muted);
+    margin-top: 4px;
+}
+input[type="range"] {
+    width: 100%;
+}
+output {
+    float: right;
+    color: var(--site-accent);
+}
+.unit-stats {
+    display: flex;
+    justify-content: space-between;
+    color: var(--site-muted);
+    font: 11px monospace;
+    margin: 10px 0 20px;
+}
+.placement-tools,
+.setup-actions {
+    display: flex;
+    gap: 6px;
+}
+.placement-tools button,
+.setup-actions button {
+    flex: 1;
+    font-size: 11px;
+    padding: 8px 5px;
+}
+.hint {
+    font-size: 11px;
+    margin: 14px 0;
+}
+.setup-actions {
+    border-top: 1px solid var(--site-border);
+    padding-top: 16px;
+}
+.field-toolbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    font-size: 11px;
+    color: var(--site-muted);
+}
+.status-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--site-accent);
+    margin-right: 6px;
+}
+.canvas-wrap {
+    position: relative;
+    background: #172720;
+}
+canvas {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3/2;
+    cursor: crosshair;
+    touch-action: none;
+}
+.compass {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+    font: 12px monospace;
+    text-align: center;
+    color: #91a390;
+    pointer-events: none;
+}
+.field-message {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--site-surface);
+    padding: 10px 18px;
+    border: 1px solid var(--site-border);
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+    pointer-events: none;
+    max-width: 85%;
+}
+.field-message:empty {
+    display: none;
+}
+.battle-actions {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.battle-actions button {
+    font-size: 12px;
+}
+.battle-actions .primary {
+    border-color: var(--site-accent);
+    color: var(--site-accent);
+}
+.battle-actions label {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 0 0 0 auto;
+    font-size: 11px;
+}
+.battle-actions select {
+    padding: 7px;
+}
+.roster-heading {
+    display: flex;
+    justify-content: space-between;
+}
+.roster-heading h2 {
+    margin-bottom: 0;
+}
+.army-row {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--site-border);
+}
+.army-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+.army-title i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.army-title strong {
+    margin-left: auto;
+    font: 16px monospace;
+}
+.army-row small {
+    font-size: 10px;
+    color: var(--site-muted);
+}
+.army-bar {
+    height: 4px;
+    background: var(--site-raised);
+    margin: 10px 0 6px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.army-bar span {
+    display: block;
+    height: 100%;
+}
+.legend {
+    margin-top: 24px;
+    color: var(--site-muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+.legend h3 {
+    font-size: 12px;
+    color: var(--site-text);
+}
+.legend span {
+    color: var(--site-text);
+}
+.notice {
+    font-size: 12px;
+    color: var(--site-accent);
+    line-height: 1.6;
+    border-top: 1px solid var(--site-border);
+    padding-top: 16px;
+    margin-bottom: 0;
+}
+.help {
+    text-align: center;
+    margin: 20px 0 0;
+    font-size: 11px;
+}
+@media (min-width: 1600px) {
+    .workspace {
+        grid-template-columns: 270px minmax(300px, 1fr) 240px;
+    }
+}
+@media (max-width: 1100px) {
+    .workspace {
+        grid-template-columns: 230px 1fr;
+    }
+    .roster {
+        grid-column: 1/-1;
+    }
+    .roster #roster {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+    .army-row {
+        min-width: 150px;
+    }
+    .legend {
+        display: none;
+    }
+}
+@media (max-width: 650px) {
+    .war-app {
+        padding: 18px 12px;
+    }
+    .workspace {
+        display: flex;
+        flex-direction: column;
+    }
+    .workspace > * {
+        width: 100%;
+    }
+    .controls {
+        order: 1;
+    }
+    .battle-panel {
+        order: 0;
+    }
+    .roster {
+        order: 2;
+    }
+    h1 {
+        font-size: 28px;
+    }
+    .subtitle {
+        max-width: 260px;
+        font-size: 11px;
+    }
+    .unit-types {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .unit-types button {
+        display: block;
+        padding: 8px;
+    }
+    .unit-types small {
+        font-size: 9px;
+    }
+    .unit-icon {
+        display: block;
+    }
+    .battle-actions {
+        padding: 10px;
+        gap: 6px;
+    }
+    .battle-actions button {
+        font-size: 10px;
+    }
+    .battle-actions label {
+        font-size: 10px;
+    }
+    .intro {
+        gap: 12px;
+    }
+    .help {
+        font-size: 10px;
+    }
+}
